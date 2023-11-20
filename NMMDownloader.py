@@ -18,9 +18,9 @@ def main():
     modCount = input("enter number of mods (numerical only): ")
     print("program starts in 15 seconds")
     print("make sure the only programs open on your virtual desktop are your browser and vortex mod manager")
-    delayProgram(15)
+    delayProgram(3)
 
-    for x in range(modCount):
+    for x in range(int(modCount)):
         pressDownload()
         delayProgram(5)
         pressSlowDownload()
