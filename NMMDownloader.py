@@ -16,17 +16,18 @@ openVortexY = 265
 
 def main():
     modCount = input("enter number of mods (numerical only): ")
+    delayAmount = input("enter delay prompt, should be set at a minimum of 10 (numerical only)")
     print("program starts in 15 seconds")
     print("make sure the only programs open on your virtual desktop are your browser and vortex mod manager")
     delayProgram(15)
 
     for x in range(int(modCount)):
         pressDownload()
-        delayProgram(5)
+        delayProgram(int(delayAmount))
         pressSlowDownload()
-        delayProgram(5)
+        delayProgram(int(delayAmount))
         pressOpenVortex()
-        delayProgram(5)
+        delayProgram(int(delayAmount))
         
 
 
