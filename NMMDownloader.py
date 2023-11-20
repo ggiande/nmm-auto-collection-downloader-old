@@ -24,9 +24,13 @@ def main():
     for x in range(int(modCount)):
         pressDownload()
         delayProgram(int(delayAmount))
+        altTab()
+        delayProgram(int(delayAmount))
         pressSlowDownload()
         delayProgram(int(delayAmount))
         pressOpenVortex()
+        delayProgram(int(delayAmount))
+        altTab()
         delayProgram(int(delayAmount))
         
 
