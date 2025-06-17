@@ -1,30 +1,29 @@
-import pyautogui as auto
+"""Single script to drive NMM Auto Downloader"""
 import time
 import sys
+import pyautogui as auto
 
 from pyautogui import ImageNotFoundException
 
-openVortexX = 2805
-openVortexY = 292
 
-
-slow_download_button_img = "slow_download_button.png"
-download_button_img = "download_button.png"
-click_here_button = "click_here_button.png"
-region_screenshot = "region_screenshot.png"
+SLOW_DOWNLOAD_BUTTON_IMG = "slow_download_button.png"
+DOWNLOAD_BUTTON_IMG = "download_button.png"
+CLICK_HERE_BUTTON = "click_here_button.png"
+REGION_SCREENSHOT = "region_screenshot.png"
 
 """
 USER CONFIG SETTTINGS
 """
-long_delay_amount: int = 30  # how long it takes for a mod to donwload on average
-short_delay_amount: int = 5  # how long it takes for a browser to load the nmm page
-
+LONG_DELAY_AMOUNT: int = 30  # how long it takes for a mod to donwload on average
+SHORT_DELAY_AMOUNT: int = 5  # how long it takes for a browser to load the nmm page
+OPEN_VORTEX_X = 2805
+OPEN_VORTEX_Y = 292
 
 def main() -> None:
     """
     Drives the NMM behavior. Behavior is sequential and not tested in unique workspaces.
     """
-    modCount: int = input("enter number of mods (numerical only): ")
+    mod_count: int = input("enter number of mods (numerical only): ")
     print("Virtual desktop should have the browser and vortex mod manager open only")
     print("Program starts in 5 seconds!")
 
@@ -32,19 +31,17 @@ def main() -> None:
     take_screenshot()
     countdown(5)
 
-    # num_mods_completed = 0
-    # for x in range(int(modCount)):
-    #     # pressDownload()
-    #     find_and_click_button(download_button_img)
-    #     delay_program(int(short_delay_amount))
-    #     # pressSlowDownload()
-    #     find_and_click_button(slow_download_button_img)
-    #     press_open_vortex()
-    #     delay_program(int(long_delay_amount))
-    #     detect_if_still_previous_image(0)
+    num_mods_completed = 0
+    for x in range(int(mod_count)):
+        find_and_click_button(DOWNLOAD_BUTTON_IMG)
+        countdown(int(SHORT_DELAY_AMOUNT))
+        find_and_click_button(SLOW_DOWNLOAD_BUTTON_IMG)
+        press_open_vortex()
+        countdown(int(LONG_DELAY_AMOUNT))
+        detect_if_still_previous_image(0)
 
-    #     num_mods_completed += 1
-    #     print(f"Completion Counter: {num_mods_completed}/{modCount}")
+        num_mods_completed += 1
+        print(f"Completion Counter: {num_mods_completed}/{mod_count}")
 
 
 def find_and_click_button(button_name: str) -> None:
@@ -91,7 +88,7 @@ def take_screenshot() -> None:
     full_screenshot = auto.screenshot()
     # Pillow crop and saving to PNG is LOSSLESS
     cropped_image = full_screenshot.crop(crop_region)
-    cropped_image.save(f"images/temp/{region_screenshot}")
+    cropped_image.save(f"images/temp/{REGION_SCREENSHOT}")
 
 
 def detect_if_still_previous_image(num_retry: int) -> None:
@@ -109,7 +106,7 @@ def detect_if_still_previous_image(num_retry: int) -> None:
     """
     try:
         icon_location = auto.locateOnScreen(
-            f"images/temp/{region_screenshot}", confidence=0.9
+            f"images/temp/{REGION_SCREENSHOT}", confidence=0.9
         )
     except ImageNotFoundException as e:
         print(
@@ -119,22 +116,21 @@ def detect_if_still_previous_image(num_retry: int) -> None:
 
     num_retry += 1
     if num_retry == 2:
-        print(f"Exceeded max num of sleep - manual download - {click_here_button}")
-        find_and_click_button(click_here_button)
+        print(f"Exceeded max num of sleep - manual download - {CLICK_HERE_BUTTON}")
+        find_and_click_button(CLICK_HERE_BUTTON)
 
     if icon_location:
-        print(f"previous state detected, trying after {long_delay_amount*3}")
+        print(f"previous state detected, trying after {LONG_DELAY_AMOUNT*3}")
         mouse_jiggler()
-        countdown(int(long_delay_amount * 3))
+        countdown(int(LONG_DELAY_AMOUNT * 3))
         mouse_jiggler()
         detect_if_still_previous_image(num_retry)
 
 
 def mouse_jiggler() -> None:
+    """Mouse jiggler helps to reduce sleep scenarios
     """
-    Mouse jiggler helps to reduce sleep scenarios
-    """
-    auto.moveTo(openVortexX, openVortexY)
+    auto.moveTo(OPEN_VORTEX_X, OPEN_VORTEX_Y)
     auto.click()
 
 
@@ -155,7 +151,7 @@ def press_open_vortex() -> None:
     Navigates the mouse cursor to the vortex application, helps to reduce sleep scenarios
     Likely to be deprecated in the future
     """
-    auto.moveTo(openVortexX, openVortexY)
+    auto.moveTo(OPEN_VORTEX_X, OPEN_VORTEX_Y)
     auto.click()
 
 
