@@ -6,18 +6,18 @@ import pyautogui as auto
 from pyautogui import ImageNotFoundException
 
 
-SLOW_DOWNLOAD_BUTTON_IMG = "slow_download_button.png"
-DOWNLOAD_BUTTON_IMG = "download_button.png"
-CLICK_HERE_BUTTON = "click_here_button.png"
-REGION_SCREENSHOT = "region_screenshot.png"
+SLOW_DOWNLOAD_BUTTON_IMG: str = "slow_download_button.png"
+DOWNLOAD_BUTTON_IMG: str = "download_button.png"
+CLICK_HERE_BUTTON: str = "click_here_button.png"
+REGION_SCREENSHOT: str = "region_screenshot.png"
 
 """
 USER CONFIG SETTTINGS
 """
 LONG_DELAY_AMOUNT: int = 30  # how long it takes for a mod to donwload on average
 SHORT_DELAY_AMOUNT: int = 5  # how long it takes for a browser to load the nmm page
-OPEN_VORTEX_X = 2805
-OPEN_VORTEX_Y = 292
+OPEN_VORTEX_X: int = 2805
+OPEN_VORTEX_Y: int = 292
 
 def main() -> None:
     """
@@ -27,7 +27,7 @@ def main() -> None:
     print("Virtual desktop should have the browser and vortex mod manager open only")
     print("Program starts in 5 seconds!")
 
-    # auto.displayMousePosition()
+    # auto.displayMousePosition() # USE THIS TO QUICKLY FIGURE OUT YOUR CUSTOM POSITIONS!
     take_screenshot()
     countdown(5)
 
